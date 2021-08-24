@@ -4,12 +4,20 @@ public class Character {
     int attack;
     int defense;
     int speed;
+    int tempPlayerAttack;
+    int tempCompDefense;
 
     public Character(){
         this.health = health;
         this.attack = attack;
         this.defense = defense;
         this.speed = speed;
+    }
+    public void playerAttackTurn(){
+        tempPlayerAttack +=
+    }
+    public void computerAttackTurn(){
+
     }
 
     public int getHealth() {
