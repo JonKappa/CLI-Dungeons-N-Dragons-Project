@@ -8,6 +8,7 @@ public class Character {
     int tempCompDefense;
 
 
+
     public Character(int health, int attack, int defense, int speed){
 
         this.health = health;
@@ -15,17 +16,17 @@ public class Character {
         this.defense = defense;
         this.speed = speed;
     }
-    public void playerAttackTurn(){
-        if(player.getSpeed > computer.getSpeed){
-            tempPlayerAttack += attack;
-        }
-    }
-    public void computerAttackTurn(){
-        if (computer.getSpeed > player.getSpeed){
+//    public void playerAttackTurn(){
+//        if(player.getSpeed > computer.getSpeed){
+//            tempPlayerAttack += attack;
+//        }
+//    }
+//    public void computerAttackTurn(){
+//        if (computer.getSpeed > player.getSpeed){
+//
+//        }
 
-        }
-
-    }
+//    }
 
     public int getHealth() {
         return health;
