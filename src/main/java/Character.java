@@ -5,7 +5,7 @@ public class Character {
     int defense;
     int speed;
 
-    public Character(){
+    public Character(int health, int attack, int defense, int speed){
         this.health = health;
         this.attack = attack;
         this.defense = defense;
