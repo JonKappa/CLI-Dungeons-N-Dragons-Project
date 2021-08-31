@@ -30,7 +30,6 @@ public class Main {
                             break;
                         }
                     } else {
-                        // when computer counterattacks on player turn if their health is 0
                         System.out.println("Enemy " + dnd.computer.team.get(cI).getName() + " counterattacks!");
                         dnd.compTurn(pI, cI);
                         if (dnd.player.team.get(pI).currentHealth <= 0) {
@@ -119,4 +118,3 @@ public class Main {
         }
     }
 }
-
