@@ -125,6 +125,7 @@ public class Game {
     }
 
     public void compTurn(int pIndex, int cIndex) {
+        // Enemy's Turn
         int damage;
         tempStatsComp(pIndex, cIndex);
         System.out.print("Enemy " + computer.team.get(cIndex).getName() + "'s Attack: ");

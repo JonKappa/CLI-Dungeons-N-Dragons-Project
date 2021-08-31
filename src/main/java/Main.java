@@ -20,6 +20,7 @@ public class Main {
                 System.out.println("You can't attack this character, try again.");
             } else {
                 if (dnd.player.team.get(pI).getSpeed() >= dnd.computer.team.get(cI).getSpeed()) {
+                    // if player goes first on players turn
                     System.out.println("Your " + dnd.player.team.get(pI).getName() + " goes first!");
                     dnd.playerTurn(pI, cI);
                     if (dnd.computer.team.get(cI).getCurrentHealth() == 0) {
@@ -29,6 +30,7 @@ public class Main {
                             break;
                         }
                     } else {
+                        // when computer counterattacks on player turn if their health is 0
                         System.out.println("Enemy " + dnd.computer.team.get(cI).getName() + " counterattacks!");
                         dnd.compTurn(pI, cI);
                         if (dnd.player.team.get(pI).currentHealth <= 0) {
@@ -40,6 +42,7 @@ public class Main {
                         }
                     }
                 } else {
+                    // if computer goes first on player turn
                     System.out.println("Enemy " + dnd.computer.team.get(cI).getName() + " goes first!");
                     dnd.compTurn(pI, cI);
                     if (dnd.player.team.get(pI).currentHealth == 0) {
@@ -49,6 +52,7 @@ public class Main {
                             break;
                         }
                     } else {
+                        // computer counterattacks on player turn if their health is not 0
                         System.out.println("Your " + dnd.player.team.get(pI).getName() + " counterattacks!");
                         dnd.playerTurn(pI, cI);
                         if (dnd.computer.team.get(cI).getCurrentHealth() == 0) {
@@ -66,6 +70,7 @@ public class Main {
                 System.out.println(pI);
                 System.out.println(cI);
                 if (dnd.player.team.get(pI).getSpeed() < dnd.computer.team.get(cI).getSpeed()) {
+                    // if computer goes first on computers turn
                     System.out.println("Enemy " + dnd.computer.team.get(cI).getName() + " goes first!");
                     dnd.compTurn(pI, cI);
                     if (dnd.player.team.get(pI).currentHealth == 0) {
@@ -75,6 +80,7 @@ public class Main {
                             break;
                         }
                     } else {
+                        // players character counterattacks if health is not 0
                         System.out.println("Your " + dnd.player.team.get(pI).getName() + " counterattacks!");
                         dnd.playerTurn(pI, cI);
                         if (dnd.computer.team.get(cI).getCurrentHealth() == 0) {
@@ -84,9 +90,9 @@ public class Main {
                                 break;
                             }
                         }
-
                     }
                 } else {
+                    // if player goes first on computers turn
                     System.out.println("Your " + dnd.player.team.get(pI).getName() + " goes first!");
                     dnd.playerTurn(pI, cI);
                     if (dnd.computer.team.get(cI).getCurrentHealth() == 0) {
@@ -96,6 +102,7 @@ public class Main {
                             break;
                         }
                     } else {
+                        // computer counterattacks on computer turn if their health is not 0
                         System.out.println("Enemy " + dnd.computer.team.get(cI).getName() + " counterattacks!");
                         dnd.compTurn(pI, cI);
                         if (dnd.player.team.get(pI).currentHealth == 0) {
@@ -112,3 +119,4 @@ public class Main {
         }
     }
 }
+
