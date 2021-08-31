@@ -1,10 +1,8 @@
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
     Player player = new Player();
     Player computer = new Player();
-    Character pH = new Character("null", 0, 0, 0, 0, 0);
     int attackRoll;
     int defenseRoll;
 
@@ -43,7 +41,7 @@ public class Game {
         for (int i = 1; i < player.team.size(); i++) {
             Teams.append(String.format("%-24s", " - Speed: " + player.team.get(i).getSpeed()));
         }
-        Teams.append("\n");
+        Teams.append("\n\n");
 
         Teams.append("Enemy Team\n");
         Teams.append("--------------------------------------------------------------------\n");
@@ -71,18 +69,20 @@ public class Game {
         for (int i = 1; i < computer.team.size(); i++) {
             Teams.append(String.format("%-24s", " - Speed: " + computer.team.get(i).getSpeed()));
         }
-        Teams.append("\n");
 
         System.out.println(Teams);
     }
 
     public boolean isGameOver() {
-        if (player.team.get(1).getCurrentHealth() == 0 && player.team.get(2).getCurrentHealth() == 0 && player.team.get(3).getCurrentHealth() == 0) {
-            System.out.println("Computer Wins!");
+        if (player.team.size() == 1) {
+            viewTeams();
+            System.out.println("The Enemy defeated all of your characters Computer wins!");
             return true;
+
         }
-        if (computer.team.get(1).getCurrentHealth() == 0 && computer.team.get(2).getCurrentHealth() == 0 && computer.team.get(3).getCurrentHealth() == 0) {
-            System.out.println("Player Wins!");
+        else if (computer.team.size() == 1) {
+            viewTeams();
+            System.out.println("You defeated all of the enemy's characters, you win!");
             return true;
         }
         else {
@@ -92,15 +92,15 @@ public class Game {
 
 
     public void tempStatsPlayer(int pIndex, int cIndex) {
-        attackRoll = new Random().nextInt(7);
-        defenseRoll = new Random().nextInt(7);
+        attackRoll = new Random().nextInt(6 + 1 - 1) + 1;
+        defenseRoll = new Random().nextInt(6 + 1 - 1) + 1;
         player.team.get(pIndex).tempAttack = player.team.get(pIndex).getAttack() + attackRoll;
         computer.team.get(cIndex).tempDefense = computer.team.get(cIndex).getDefense() + defenseRoll;
     }
     public void tempStatsComp(int pIndex, int cIndex) {
-        attackRoll = new Random().nextInt(7);
-        defenseRoll = new Random().nextInt(7);
-        computer.team.get(pIndex).tempAttack = computer.team.get(pIndex).getAttack() + attackRoll;
+        attackRoll = new Random().nextInt(6 + 1 - 1) + 1;
+        defenseRoll = new Random().nextInt(6 + 1 - 1) + 1;
+        computer.team.get(cIndex).tempAttack = computer.team.get(cIndex).getAttack() + attackRoll;
         player.team.get(pIndex).tempDefense = player.team.get(pIndex).getDefense() + defenseRoll;
     }
     public void playerTurn(int pIndex, int cIndex) {
@@ -122,9 +122,6 @@ public class Game {
             }
         }
         System.out.println("Your " + player.team.get(pIndex).getName() + " deals " + damage + " damage to the Enemy " + computer.team.get(cIndex).getName() + "!\n");
-        if (computer.team.get(cIndex).currentHealth - damage <= 0) {
-            computer.team.remove(cIndex);
-        }
     }
 
     public void compTurn(int pIndex, int cIndex) {
@@ -139,15 +136,15 @@ public class Game {
         } else {
             damage = computer.team.get(cIndex).tempAttack - player.team.get(pIndex).tempDefense;
             if (player.team.get(pIndex).currentHealth - damage < 0) {
+                player.team.get(pIndex).currentHealth = 0;
 
             } else {
                 player.team.get(pIndex).currentHealth -= damage;
             }
         }
+
         System.out.println("Enemy " + computer.team.get(cIndex).getName() + " deals " + damage + " damage to your " + player.team.get(pIndex).getName() + "!\n");
-        if (player.team.get(pIndex).currentHealth - damage <= 0) {
-            player.team.remove(pIndex);
-        }
+
     }
 
 
