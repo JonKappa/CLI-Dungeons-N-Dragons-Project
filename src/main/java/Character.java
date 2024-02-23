@@ -1,13 +1,13 @@
 public class Character {
 
-    final String name;
-    int currentHealth;
-    final int maxHealth;
-    final int attack;
-    final int defense;
-    final int speed;
-    int tempAttack;
-    int tempDefense;
+    public final String name;
+    public int currentHealth;
+    public final int maxHealth;
+    public final int attack;
+    public final int defense;
+    public final int speed;
+    public int tempAttack;
+    public int tempDefense;
 
 
 
