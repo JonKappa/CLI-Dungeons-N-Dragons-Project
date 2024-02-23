@@ -1,8 +1,8 @@
 import java.util.Random;
 
 public class Game {
-    Player player = new Player();
-    Player computer = new Player();
+    public Player player = new Player();
+    public Player computer = new Player();
     int attackRoll;
     int defenseRoll;
 

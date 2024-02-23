@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Player {
-    ArrayList<Character> team =  new ArrayList<>(4);
+    public ArrayList<Character> team =  new ArrayList<>(4);
     public void createTeam() {
         CharacterList characterList1  = new CharacterList();
         CharacterList characterList2  = new CharacterList();
