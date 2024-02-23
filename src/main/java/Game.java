@@ -109,8 +109,10 @@ public class Game {
         tempStatsPlayer(pIndex, cIndex);
         System.out.print("Your " + player.team.get(pIndex).getName() + "'s Attack: ");
         System.out.println("Base of " + player.team.get(pIndex).getAttack() + " + Roll of " + attackRoll + " = " + player.team.get(pIndex).tempAttack);
+
         System.out.print("Enemy " + computer.team.get(cIndex).getName() + "'s Defense: ");
         System.out.println("Base of " + computer.team.get(cIndex).getDefense() + " + Roll of " + defenseRoll + " = " + computer.team.get(cIndex).tempDefense);
+
         if (player.team.get(pIndex).tempAttack - computer.team.get(cIndex).tempDefense <= 0) {
             damage = 0;
         } else {
@@ -130,8 +132,10 @@ public class Game {
         tempStatsComp(pIndex, cIndex);
         System.out.print("Enemy " + computer.team.get(cIndex).getName() + "'s Attack: ");
         System.out.println("Base of " + computer.team.get(cIndex).getAttack() + " + Roll of " + attackRoll + " = " + computer.team.get(cIndex).tempAttack);
+
         System.out.print("Your " + player.team.get(pIndex).getName() + "'s Defense: ");
         System.out.println("Base of " + player.team.get(pIndex).getDefense() + " + Roll of " + defenseRoll + " = " + player.team.get(pIndex).tempDefense);
+
         if (computer.team.get(cIndex).tempAttack - player.team.get(pIndex).tempDefense <= 0) {
             damage = 0;
         } else {
@@ -145,13 +149,23 @@ public class Game {
         }
 
         System.out.println("Enemy " + computer.team.get(cIndex).getName() + " deals " + damage + " damage to your " + player.team.get(pIndex).getName() + "!\n");
-
     }
 
+    public void sleep(int milTime)
+    {
+        try {
+            Thread.sleep(milTime);
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
-
-
-
-
-
+    public void clear()
+    {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }
