@@ -16,5 +16,9 @@ public class Player {
         team.add(characterList3.charList.get(new Random().nextInt(characterList3.charList.size())));
     }
 
-
+    public void removeChar(int charI)
+    {
+        team.remove(charI);
+        team.trimToSize();
+    }
 }
