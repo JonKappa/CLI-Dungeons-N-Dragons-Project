@@ -10,11 +10,11 @@ public class Player
         CharacterList characterList  = new CharacterList();
 
         team.add(characterList.pH);
-        characterList.createCharList();
+        characterList.charList = characterList.createCharList();
 
         team.add(characterList.charList.get(new Random().nextInt(characterList.charList.size())));
-        team.add(characterList.charList.get(new Random().nextInt(characterList.charList.size())));
-        team.add(characterList.charList.get(new Random().nextInt(characterList.charList.size())));
+        team.add(new CharacterList().createCharList().get(new Random().nextInt(characterList.charList.size())));
+        team.add(new CharacterList().createCharList().get(new Random().nextInt(characterList.charList.size())));
     }
 
     public void removeChar(int charI)

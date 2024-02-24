@@ -23,7 +23,7 @@ public class Main
                 pI = scanner.nextInt();
             }
 
-            if (pI > dnd.player.team.size() - 1) {
+            if (pI > dnd.player.team.size() - 1 || pI <= 0) {
                 System.out.println("Please pick between Characters 1 through 3.");
                 dnd.sleep(2000);
                 pI = 0;
@@ -36,21 +36,11 @@ public class Main
                 cI = scanner.nextInt();
             }
 
-            if (cI > dnd.player.team.size() - 1) {
+            if (cI > dnd.computer.team.size() - 1|| cI <= 0) {
                 System.out.println("Please pick between Characters 1 through 3.");
                 dnd.sleep(2000);
                 cI = 0;
 
-                continue;
-            }
-
-            if (dnd.player.team.get(pI).getCurrentHealth() == 0) {
-                System.out.println("You cant attack with this character, pick again. ");
-                continue;
-            }
-            
-            if (dnd.computer.team.get(cI).getCurrentHealth() == 0) {
-                System.out.println("You can't attack this character, try again.");
                 continue;
             }
 
@@ -67,8 +57,10 @@ public class Main
             }
 
             System.out.println("\nEnemy Turn!");
+
             pI = random.nextInt((dnd.player.team.size() - 1) + 1 - 1) + 1;
             cI = random.nextInt((dnd.computer.team.size() - 1) + 1 - 1) + 1;
+
             System.out.println(pI);
             System.out.println(cI);
 

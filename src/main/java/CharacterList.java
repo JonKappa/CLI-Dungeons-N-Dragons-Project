@@ -12,7 +12,7 @@ public class CharacterList
 
     ArrayList<Character> charList = new ArrayList<>(6);
 
-    public void createCharList()
+    public ArrayList<Character> createCharList()
     {
         charList.add(Druid);
         charList.add(Orge);
@@ -20,5 +20,7 @@ public class CharacterList
         charList.add(Rogue);
         charList.add(Warrior);
         charList.add(Wizard);
+
+        return charList;
     }
 }
