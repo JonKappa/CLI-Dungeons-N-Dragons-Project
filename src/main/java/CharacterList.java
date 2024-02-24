@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
-public class CharacterList{
+public class CharacterList
+{
     Character Druid = new Druid();
     Character Orge = new Orge();
     Character Paladin = new Paladin();
@@ -11,7 +12,8 @@ public class CharacterList{
 
     ArrayList<Character> charList = new ArrayList<>(6);
 
-    public void createCharList(){
+    public void createCharList()
+    {
         charList.add(Druid);
         charList.add(Orge);
         charList.add(Paladin);

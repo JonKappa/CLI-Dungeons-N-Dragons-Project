@@ -1,17 +1,17 @@
-public class Character {
-
+public class Character
+{
     public final String name;
-    public int currentHealth;
     public final int maxHealth;
     public final int attack;
     public final int defense;
     public final int speed;
+
+    public int currentHealth;
     public int tempAttack;
     public int tempDefense;
 
-
-
-    public Character(String name, int currentHealth, int maxHealth, int attack, int defense, int speed){
+    public Character(String name, int currentHealth, int maxHealth, int attack, int defense, int speed)
+    {
         this.name = name;
         this.currentHealth = currentHealth;
         this.maxHealth = maxHealth;
@@ -30,32 +30,43 @@ public class Character {
 //        }
 
 //    }
-    public String getName() {return name;}
+    public String getName()
+    {
+        return name;
+    }
 
-    public int getMaxHealth() {
+    public int getMaxHealth()
+    {
         return maxHealth;
     }
 
-    public int getCurrentHealth() {return currentHealth;}
+    public int getCurrentHealth()
+    {
+        return currentHealth;
+    }
 
-    public int getAttack() {
+    public int getAttack()
+    {
         return attack;
     }
 
-    public int getDefense() {
+    public int getDefense()
+    {
         return defense;
     }
 
-    public int getSpeed() {
+    public int getSpeed()
+    {
         return speed;
     }
 
 
-    public String toString() {
+    public String toString()
+    {
         return getClass().getName() + "" + "\n" +
-                " - Health: " + currentHealth + " / " + maxHealth + "\n" +
-                " - Attack: " + attack + "\n" +
-                " - Defense: " + defense + "\n" +
-                " - Speed: " + speed;
+            " - Health: " + currentHealth + " / " + maxHealth + "\n" +
+            " - Attack: " + attack + "\n" +
+            " - Defense: " + defense + "\n" +
+            " - Speed: " + speed;
     }
 }

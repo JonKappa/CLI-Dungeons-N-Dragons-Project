@@ -1,17 +1,21 @@
 import java.util.Random;
 
-public class Game {
+public class Game
+{
     public Player player = new Player();
     public Player computer = new Player();
+
     int attackRoll;
     int defenseRoll;
 
-    public void createTeams() {
+    public void createTeams() 
+    {
         player.createTeam();
         computer.createTeam();
     }
 
-    public void viewTeams() {
+    public void viewTeams()
+    {
         StringBuilder Teams = new StringBuilder();
 
         Teams.append("Your Team\n");
@@ -72,7 +76,8 @@ public class Game {
         System.out.println(Teams);
     }
 
-    public boolean isGameOver() {
+    public boolean isGameOver()
+    {
         if (player.team.size() == 1) {
             viewTeams();
             System.out.println("The Enemy defeated all of your characters Computer wins!");
@@ -90,19 +95,22 @@ public class Game {
     }
 
 
-    public void tempStatsPlayer(int pIndex, int cIndex) {
+    public void tempStatsPlayer(int pIndex, int cIndex)
+    {
         attackRoll = new Random().nextInt(6 + 1 - 1) + 1;
         defenseRoll = new Random().nextInt(6 + 1 - 1) + 1;
         player.team.get(pIndex).tempAttack = player.team.get(pIndex).getAttack() + attackRoll;
         computer.team.get(cIndex).tempDefense = computer.team.get(cIndex).getDefense() + defenseRoll;
     }
-    public void tempStatsComp(int pIndex, int cIndex) {
+    public void tempStatsComp(int pIndex, int cIndex)
+    {
         attackRoll = new Random().nextInt(6 + 1 - 1) + 1;
         defenseRoll = new Random().nextInt(6 + 1 - 1) + 1;
         computer.team.get(cIndex).tempAttack = computer.team.get(cIndex).getAttack() + attackRoll;
         player.team.get(pIndex).tempDefense = player.team.get(pIndex).getDefense() + defenseRoll;
     }
-    public void playerTurn(int pI, int cI) {
+    public void playerTurn(int pI, int cI)
+    {
         if (compareSpeed(pI, cI) == "Comp") {
             // if computer goes first
 
@@ -143,7 +151,8 @@ public class Game {
         }
     }
 
-    public void compTurn(int pI, int cI) {
+    public void compTurn(int pI, int cI)
+    {
         if (compareSpeed(pI, cI) == "Player") {
             // if player goes first
             System.out.println("Enemy " + computer.team.get(cI).getName() + " counterattacks!");

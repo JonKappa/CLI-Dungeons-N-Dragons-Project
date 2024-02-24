@@ -1,14 +1,18 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
+public class Main
+{
+    public static void main(String[] args)
+    {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
         Game dnd = new Game();
+
         dnd.createTeams();
         int pI = 0;
         int cI = 0;
+
         while (! dnd.isGameOver()) {
             dnd.clear();
             dnd.viewTeams();
@@ -79,6 +83,7 @@ public class Main {
             }
 
             System.out.println("Press \"ENTER\" to continue...");
+
             scanner = new Scanner(System.in);
             scanner.nextLine();
 
