@@ -10,7 +10,11 @@ public class Main
         Game dnd = new Game();
 
         dnd.createTeams();
+
+        Player player = dnd.player;
         int pI = 0;
+
+        Player computer = dnd.computer;
         int cI = 0;
 
         while (! dnd.isGameOver()) {
@@ -23,8 +27,8 @@ public class Main
                 pI = scanner.nextInt();
             }
 
-            if (pI > dnd.player.team.size() - 1 || pI <= 0) {
-                System.out.println("Please pick between Characters 1 through" + (dnd.player.team.size() - 1) + ".");
+            if (pI <= 0 || pI > player.teamSize()) {
+                System.out.println("Please pick between Characters 1 through" + player.teamSize() + ".");
                 dnd.sleep(2000);
                 pI = 0;
 
@@ -36,8 +40,8 @@ public class Main
                 cI = scanner.nextInt();
             }
 
-            if (cI > dnd.computer.team.size() - 1|| cI <= 0) {
-                System.out.println("Please pick between Characters 1 through 3.");
+            if (cI <= 0 || cI > computer.teamSize()) {
+                System.out.println("Please pick between Characters 1 through" + computer.teamSize() + ".");
                 dnd.sleep(2000);
                 cI = 0;
 
@@ -46,7 +50,7 @@ public class Main
 
             dnd.clear();
 
-            if (dnd.compareSpeed(dnd.player.team.get(pI), dnd.computer.team.get(cI))) {
+            if (dnd.compareSpeed(player.getChar(pI), computer.getChar(cI))) {
                 dnd.playerTurn(pI, cI);
             } else {
                 dnd.compTurn(pI, cI);
@@ -61,13 +65,13 @@ public class Main
 
             System.out.println("\nEnemy Turn!");
 
-            pI = random.nextInt((dnd.player.team.size() - 1) + 1 - 1) + 1;
-            cI = random.nextInt((dnd.computer.team.size() - 1) + 1 - 1) + 1;
+            pI = random.nextInt((player.teamSize()) + 1 - 1) + 1;
+            cI = random.nextInt((computer.teamSize()) + 1 - 1) + 1;
 
             System.out.println(pI);
             System.out.println(cI);
 
-            if (dnd.compareSpeed(dnd.player.team.get(pI), dnd.computer.team.get(cI))) {
+            if (dnd.compareSpeed(player.getChar(pI), computer.getChar(cI))) {
                 dnd.playerTurn(pI, cI);
             } else {
                 dnd.compTurn(pI, cI);

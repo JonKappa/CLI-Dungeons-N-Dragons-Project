@@ -119,14 +119,17 @@ public class Game
 
     public void playerTurn(int pI, int cI)
     {
-        if (! compareSpeed(player.getChar(pI), computer.getChar(cI))) {
+        Character playerChar = player.getChar(pI);
+        Character computerChar = computer.getChar(cI);
+
+        if (! compareSpeed(playerChar, computerChar)) {
             // if computer goes first
 
-            System.out.println("Your " + player.team.get(pI).getName() + " counterattacks!");
+            System.out.println("Your " + playerChar.getName() + " counterattacks!");
         } else {
             // if player goes first
 
-            System.out.println("Your " + player.team.get(pI).getName() + " goes first!");
+            System.out.println("Your " + playerChar.getName() + " goes first!");
         }
 
         // Player's attack
@@ -155,6 +158,7 @@ public class Game
         }
 
         if (compareSpeed(player.getChar(pI), computer.getChar(cI))) {
+            // System.out.println(compareSpeed(player.getChar(pI), computer.getChar(cI)));
             compTurn(pI, cI);
         }
     }
@@ -211,7 +215,11 @@ public class Game
      */
     public boolean compareSpeed(Character char1, Character char2)
     {
-        return char1.getSpeed() >= char2.getSpeed();
+        if (char1.getSpeed() == char2.getSpeed()) {
+            return new Random().nextBoolean();
+        }
+
+        return char1.getSpeed() > char2.getSpeed();
     }
 
     public void sleep(int milTime)
