@@ -25,4 +25,9 @@ public class Player
         team.remove(charI);
         team.trimToSize();
     }
+
+    public int teamSize()
+    {
+        return team.size() - 1;
+    }
 }
