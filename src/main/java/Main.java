@@ -24,7 +24,7 @@ public class Main
             }
 
             if (pI > dnd.player.team.size() - 1 || pI <= 0) {
-                System.out.println("Please pick between Characters 1 through 3.");
+                System.out.println("Please pick between Characters 1 through" + (dnd.player.team.size() - 1) + ".");
                 dnd.sleep(2000);
                 pI = 0;
 
@@ -46,7 +46,7 @@ public class Main
 
             dnd.clear();
 
-            if (dnd.compareSpeed(pI, cI) == "Player") {
+            if (dnd.compareSpeed(dnd.player.team.get(pI), dnd.computer.team.get(cI))) {
                 dnd.playerTurn(pI, cI);
             } else {
                 dnd.compTurn(pI, cI);
@@ -56,6 +56,9 @@ public class Main
                 break;
             }
 
+            scanner = new Scanner(System.in);
+            scanner.nextLine();
+
             System.out.println("\nEnemy Turn!");
 
             pI = random.nextInt((dnd.player.team.size() - 1) + 1 - 1) + 1;
@@ -64,7 +67,7 @@ public class Main
             System.out.println(pI);
             System.out.println(cI);
 
-            if (dnd.compareSpeed(pI, cI) == "Player") {
+            if (dnd.compareSpeed(dnd.player.team.get(pI), dnd.computer.team.get(cI))) {
                 dnd.playerTurn(pI, cI);
             } else {
                 dnd.compTurn(pI, cI);

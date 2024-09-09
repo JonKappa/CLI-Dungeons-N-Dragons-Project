@@ -79,15 +79,21 @@ public class Game
     public boolean isGameOver()
     {
         if (player.team.size() == 1) {
+            clear();
             viewTeams();
-            System.out.println("The Enemy defeated all of your characters Computer wins!");
+
+            System.out.println("The Enemy defeated all of your characters, Computer wins!");
+
             return true;
 
         }
         
         if (computer.team.size() == 1) {
+            clear();
             viewTeams();
-            System.out.println("You defeated all of the enemy's characters, you win!");
+
+            System.out.println("You defeated all of the enemy's characters, Player win!");
+
             return true;
         }
         
@@ -102,6 +108,7 @@ public class Game
         player.team.get(pIndex).tempAttack = player.team.get(pIndex).getAttack() + attackRoll;
         computer.team.get(cIndex).tempDefense = computer.team.get(cIndex).getDefense() + defenseRoll;
     }
+
     public void tempStatsComp(int pIndex, int cIndex)
     {
         attackRoll = new Random().nextInt(6 + 1 - 1) + 1;
@@ -109,9 +116,10 @@ public class Game
         computer.team.get(cIndex).tempAttack = computer.team.get(cIndex).getAttack() + attackRoll;
         player.team.get(pIndex).tempDefense = player.team.get(pIndex).getDefense() + defenseRoll;
     }
+
     public void playerTurn(int pI, int cI)
     {
-        if (compareSpeed(pI, cI) == "Comp") {
+        if (! compareSpeed(player.getChar(pI), computer.getChar(cI))) {
             // if computer goes first
 
             System.out.println("Your " + player.team.get(pI).getName() + " counterattacks!");
@@ -133,8 +141,8 @@ public class Game
 
         damage = player.team.get(pI).tempAttack - computer.team.get(cI).tempDefense;
 
-        if (damage < 0) {
-            damage = 0;
+        if (damage <= 0) {
+            damage = 1;
         }
 
         computer.team.get(cI).currentHealth -= damage;
@@ -146,17 +154,20 @@ public class Game
             return;
         }
 
-        if (compareSpeed(pI, cI) == "Player") {
+        if (compareSpeed(player.getChar(pI), computer.getChar(cI))) {
             compTurn(pI, cI);
         }
     }
 
     public void compTurn(int pI, int cI)
     {
-        if (compareSpeed(pI, cI) == "Player") {
+        if (! compareSpeed(computer.getChar(cI), player.getChar(pI))) {
             // if player goes first
+
             System.out.println("Enemy " + computer.team.get(cI).getName() + " counterattacks!");
         } else {
+            // if computer goes first
+
             System.out.println("Enemy " + computer.team.get(cI).getName() + " goes first!");
         }
 
@@ -185,14 +196,22 @@ public class Game
             return;
         }
 
-        if (compareSpeed(pI, cI) == "Comp") {
+        if (compareSpeed(computer.getChar(cI), player.getChar(pI))) {
             playerTurn(pI, cI);
         }
     }
 
-    public String compareSpeed(int pI, int cI)
+    /**
+     * Compare two speeds.
+     * 
+     * Returns true if char1's speed is larger or the same. 
+     * Returns false if char2's speed is larger.
+     *
+     * @return boolean
+     */
+    public boolean compareSpeed(Character char1, Character char2)
     {
-        return player.team.get(pI).getSpeed() >= computer.team.get(cI).getSpeed() ? "Player" : "Comp";
+        return char1.getSpeed() >= char2.getSpeed();
     }
 
     public void sleep(int milTime)

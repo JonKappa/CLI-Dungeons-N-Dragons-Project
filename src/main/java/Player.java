@@ -7,14 +7,17 @@ public class Player
 
     public void createTeam()
     {
-        CharacterList characterList  = new CharacterList();
+        team.add(new CharacterList().pH);
+        int charlistSize = new CharacterList().createCharList().size();
 
-        team.add(characterList.pH);
-        characterList.charList = characterList.createCharList();
+        for (int i = 1; i <= 3; i++) {
+            team.add(new CharacterList().createCharList().get(new Random().nextInt(charlistSize)));
+        }
+    }
 
-        team.add(characterList.charList.get(new Random().nextInt(characterList.charList.size())));
-        team.add(new CharacterList().createCharList().get(new Random().nextInt(characterList.charList.size())));
-        team.add(new CharacterList().createCharList().get(new Random().nextInt(characterList.charList.size())));
+    public Character getChar(int charI)
+    {
+        return team.get(charI);
     }
 
     public void removeChar(int charI)
