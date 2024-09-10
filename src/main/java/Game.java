@@ -5,8 +5,12 @@ public class Game
     public Player player = new Player();
     public Player computer = new Player();
 
+    int pIndex;
+    int cIndex;
+
     int attackRoll;
     int defenseRoll;
+    boolean counterAttack = false;
 
     public void createTeams() 
     {
@@ -78,7 +82,7 @@ public class Game
 
     public boolean isGameOver()
     {
-        if (player.team.size() == 1) {
+        if (player.teamSize() == 0) {
             clear();
             viewTeams();
 
@@ -88,7 +92,7 @@ public class Game
 
         }
         
-        if (computer.team.size() == 1) {
+        if (computer.teamSize() == 0) {
             clear();
             viewTeams();
 
@@ -101,116 +105,111 @@ public class Game
     }
 
 
-    public void tempStatsPlayer(int pIndex, int cIndex)
+    public void tempStatsPlayer(Character playerChar, Character computerChar)
     {
         attackRoll = new Random().nextInt(6 + 1 - 1) + 1;
         defenseRoll = new Random().nextInt(6 + 1 - 1) + 1;
-        player.team.get(pIndex).tempAttack = player.team.get(pIndex).getAttack() + attackRoll;
-        computer.team.get(cIndex).tempDefense = computer.team.get(cIndex).getDefense() + defenseRoll;
+        playerChar.tempAttack = playerChar.getAttack() + attackRoll;
+        computerChar.tempDefense = computerChar.getDefense() + defenseRoll;
     }
 
-    public void tempStatsComp(int pIndex, int cIndex)
+    public void tempStatsComp(Character computerChar, Character playerChar)
     {
         attackRoll = new Random().nextInt(6 + 1 - 1) + 1;
         defenseRoll = new Random().nextInt(6 + 1 - 1) + 1;
-        computer.team.get(cIndex).tempAttack = computer.team.get(cIndex).getAttack() + attackRoll;
-        player.team.get(pIndex).tempDefense = player.team.get(pIndex).getDefense() + defenseRoll;
+        computerChar.tempAttack = computerChar.getAttack() + attackRoll;
+        playerChar.tempDefense = playerChar.getDefense() + defenseRoll;
     }
 
-    public void playerTurn(int pI, int cI)
+    public void playerTurn(Character playerChar, Character computerChar)
     {
-        Character playerChar = player.getChar(pI);
-        Character computerChar = computer.getChar(cI);
-
-        if (! compareSpeed(playerChar, computerChar)) {
-            // if computer goes first
-
+        if (counterAttack) { // if computer goes first
             System.out.println("Your " + playerChar.getName() + " counterattacks!");
-        } else {
-            // if player goes first
-
+        } else { // if player goes first
             System.out.println("Your " + playerChar.getName() + " goes first!");
         }
 
         // Player's attack
         int damage;
-        tempStatsPlayer(pI, cI);
+        tempStatsPlayer(playerChar, computerChar);
 
-        System.out.print("Your " + player.team.get(pI).getName() + "'s Attack: ");
-        System.out.println("Base of " + player.team.get(pI).getAttack() + " + Roll of " + attackRoll + " = " + player.team.get(pI).tempAttack);
+        System.out.print("Your " + playerChar.getName() + "'s Attack: ");
+        System.out.println("Base of " + playerChar.getAttack() + " + Roll of " + attackRoll + " = " + playerChar.tempAttack);
 
-        System.out.print("Enemy " + computer.team.get(cI).getName() + "'s Defense: ");
-        System.out.println("Base of " + computer.team.get(cI).getDefense() + " + Roll of " + defenseRoll + " = " + computer.team.get(cI).tempDefense);
+        System.out.print("Enemy " + computerChar.getName() + "'s Defense: ");
+        System.out.println("Base of " + computerChar.getDefense() + " + Roll of " + defenseRoll + " = " + computerChar.tempDefense);
 
-        damage = player.team.get(pI).tempAttack - computer.team.get(cI).tempDefense;
+        damage = playerChar.tempAttack - computerChar.tempDefense;
 
         if (damage <= 0) {
             damage = 1;
         }
 
-        computer.team.get(cI).currentHealth -= damage;
+        computerChar.currentHealth -= damage;
 
-        System.out.println("Your " + player.team.get(pI).getName() + " deals " + damage + " damage to the Enemy " + computer.team.get(cI).getName() + "!\n");
+        System.out.println("Your " + playerChar.getName() + " deals " + damage + " damage to the Enemy " + computerChar.getName() + "!\n");
 
-        if (computer.team.get(cI).currentHealth <= 0) {
-            computer.removeChar(cI);
+        if (computerChar.currentHealth <= 0) {
+            computer.removeChar(cIndex);
             return;
         }
 
-        if (compareSpeed(player.getChar(pI), computer.getChar(cI))) {
-            // System.out.println(compareSpeed(player.getChar(pI), computer.getChar(cI)));
-            compTurn(pI, cI);
+        System.out.println(counterAttack);
+        if (! counterAttack) {
+            counterAttack = true;
+            compTurn(computerChar, playerChar);
         }
     }
 
-    public void compTurn(int pI, int cI)
+    public void compTurn(Character computerChar, Character playerChar)
     {
-        if (! compareSpeed(computer.getChar(cI), player.getChar(pI))) {
-            // if player goes first
-
-            System.out.println("Enemy " + computer.team.get(cI).getName() + " counterattacks!");
-        } else {
-            // if computer goes first
-
-            System.out.println("Enemy " + computer.team.get(cI).getName() + " goes first!");
+        if (counterAttack) { // if player goes first
+            System.out.println("Enemy " + computerChar.getName() + " counterattacks!");
+        } else { // if computer goes first
+            System.out.println("Enemy " + computerChar.getName() + " goes first!");
         }
 
         // Enemy's Turn
         int damage;
-        tempStatsComp(pI, cI);
+        tempStatsComp(computerChar, playerChar);
 
-        System.out.print("Enemy " + computer.team.get(cI).getName() + "'s Attack: ");
-        System.out.println("Base of " + computer.team.get(cI).getAttack() + " + Roll of " + attackRoll + " = " + computer.team.get(cI).tempAttack);
+        System.out.print("Enemy " + computerChar.getName() + "'s Attack: ");
+        System.out.println("Base of " + computerChar.getAttack() + " + Roll of " + attackRoll + " = " + computerChar.tempAttack);
 
-        System.out.print("Your " + player.team.get(pI).getName() + "'s Defense: ");
-        System.out.println("Base of " + player.team.get(pI).getDefense() + " + Roll of " + defenseRoll + " = " + player.team.get(pI).tempDefense);
+        System.out.print("Your " + playerChar.getName() + "'s Defense: ");
+        System.out.println("Base of " + playerChar.getDefense() + " + Roll of " + defenseRoll + " = " + playerChar.tempDefense);
 
-        damage = computer.team.get(cI).tempAttack - player.team.get(pI).tempDefense;
+        damage = computerChar.tempAttack - playerChar.tempDefense;
 
-        if (damage < 0) {
-            damage = 0;
+        if (damage <= 0) {
+            damage = 1;
         }
 
-        player.team.get(pI).currentHealth -= damage;
+        playerChar.currentHealth -= damage;
 
-        System.out.println("Enemy " + computer.team.get(cI).getName() + " deals " + damage + " damage to your " + player.team.get(pI).getName() + "!\n");
+        System.out.println("Enemy " + computerChar.getName() + " deals " + damage + " damage to your " + playerChar.getName() + "!\n");
 
-        if (player.team.get(pI).currentHealth <= 0) {
-            player.removeChar(pI);
+        if (playerChar.currentHealth <= 0) {
+            player.removeChar(pIndex);
             return;
         }
 
-        if (compareSpeed(computer.getChar(cI), player.getChar(pI))) {
-            playerTurn(pI, cI);
+        System.out.println(counterAttack);
+        if (! counterAttack) {
+            counterAttack = true;
+            playerTurn(playerChar, computerChar);
         }
     }
 
     /**
      * Compare two speeds.
      * 
-     * Returns true if char1's speed is larger or the same. 
-     * Returns false if char2's speed is larger.
+     * <p>Returns true if char1's speed is larger or the same. 
+     * <p>Returns false if char2's speed is larger.
      *
+     * @param char1 character 1
+     * @param char2 character 2
+     * 
      * @return boolean
      */
     public boolean compareSpeed(Character char1, Character char2)
