@@ -2,6 +2,6 @@ public class Orge extends Character
 {
     public Orge()
     {
-        super("Orge", 20, 20, 9, 3, 1);
+        super("Orge", 20, 20, 8, 1, 2);
     }
 }
