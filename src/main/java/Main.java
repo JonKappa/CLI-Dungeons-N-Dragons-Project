@@ -10,65 +10,79 @@ public class Main
         Game dnd = new Game();
 
         dnd.createTeams();
-        int pI = 0;
-        int cI = 0;
+
+        Player player = dnd.player;
+        Player computer = dnd.computer;
 
         while (! dnd.isGameOver()) {
             dnd.clear();
             dnd.viewTeams();
             System.out.println("\nYour Turn!");
 
-            if (pI == 0) {
+            if (dnd.pIndex == 0) {
                 System.out.print("Attack with: ");
-                pI = scanner.nextInt();
+                dnd.pIndex = scanner.nextInt();
             }
 
-            if (pI > dnd.player.team.size() - 1 || pI <= 0) {
-                System.out.println("Please pick between Characters 1 through 3.");
+            if (dnd.pIndex <= 0 || dnd.pIndex > player.teamSize()) {
+                System.out.println("Please pick between Characters 1 through" + player.teamSize() + ".");
                 dnd.sleep(2000);
-                pI = 0;
+                dnd.pIndex = 0;
 
                 continue;
             }
 
-            if (cI == 0) {
+            if (dnd.cIndex == 0) {
                 System.out.print("Attack Enemy: ");
-                cI = scanner.nextInt();
+                dnd.cIndex = scanner.nextInt();
             }
 
-            if (cI > dnd.computer.team.size() - 1|| cI <= 0) {
-                System.out.println("Please pick between Characters 1 through 3.");
+            if (dnd.cIndex <= 0 || dnd.cIndex > computer.teamSize()) {
+                System.out.println("Please pick between Characters 1 through" + computer.teamSize() + ".");
                 dnd.sleep(2000);
-                cI = 0;
+                dnd.cIndex = 0;
 
                 continue;
             }
 
             dnd.clear();
 
-            if (dnd.compareSpeed(pI, cI) == "Player") {
-                dnd.playerTurn(pI, cI);
+            Character playerChar = player.getChar(dnd.pIndex);
+            Character computerChar = computer.getChar(dnd.cIndex);
+
+            if (dnd.compareSpeed(playerChar, computerChar)) {
+                dnd.playerTurn(playerChar, computerChar);
             } else {
-                dnd.compTurn(pI, cI);
+                dnd.compTurn(computerChar, playerChar);
             }
+
+            dnd.counterAttack = false;
 
             if (dnd.isGameOver()) {
                 break;
             }
 
+            scanner = new Scanner(System.in);
+            scanner.nextLine();
+
             System.out.println("\nEnemy Turn!");
 
-            pI = random.nextInt((dnd.player.team.size() - 1) + 1 - 1) + 1;
-            cI = random.nextInt((dnd.computer.team.size() - 1) + 1 - 1) + 1;
+            dnd.pIndex = random.nextInt((player.teamSize()) + 1 - 1) + 1;
+            dnd.cIndex = random.nextInt((computer.teamSize()) + 1 - 1) + 1;
 
-            System.out.println(pI);
-            System.out.println(cI);
+            System.out.println(dnd.pIndex);
+            System.out.println(dnd.cIndex);
 
-            if (dnd.compareSpeed(pI, cI) == "Player") {
-                dnd.playerTurn(pI, cI);
+            playerChar = player.getChar(dnd.pIndex);
+            computerChar = computer.getChar(dnd.cIndex);
+
+            if (dnd.compareSpeed(computerChar, playerChar)) {
+                dnd.compTurn(computerChar, playerChar);
             } else {
-                dnd.compTurn(pI, cI);
+                dnd.playerTurn(playerChar, computerChar);
             }
+
+            dnd.counterAttack = false;
 
             if (dnd.isGameOver()) {
                 break;
@@ -79,8 +93,8 @@ public class Main
             scanner = new Scanner(System.in);
             scanner.nextLine();
 
-            pI = 0;
-            cI = 0;
+            dnd.pIndex = 0;
+            dnd.cIndex = 0;
         }
     }
 }
