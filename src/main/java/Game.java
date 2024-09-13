@@ -204,8 +204,10 @@ public class Game
     /**
      * Compare two speeds.
      * 
-     * <p>Returns true if char1's speed is larger or the same. 
+     * <p>Returns true if char1's speed is larger.
      * <p>Returns false if char2's speed is larger.
+     * 
+     * <p> If both characters have the same speed, then the faster one is picked at random.
      *
      * @param char1 character 1
      * @param char2 character 2
